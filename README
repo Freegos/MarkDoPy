@@ -1,0 +1,6 @@
+Author: Adrien Albaladejo / adrien.albaladejo@gmail.com
+
+Personal MarkDown interpreter to HTML
+
+Generate HTML using 
+	markDo.py -i filename.mk -o filename.html 
