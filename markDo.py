@@ -13,7 +13,7 @@
 # TADA
 
 # TO-DO (v2):
-#	* read other headers
+#	* read random headers
 #	* add summary (pdf)/menu (html)
 
 
@@ -21,8 +21,8 @@ import argparse
 import re
 
 def header(file):
-	#Arg : file openned without having been read
-	#Return headers in list ù
+	#Arg : file object unread (cursor still is on first line)
+	#Return headers in indexed list
 	headers = {'title': 'Unknow', 'date':'Unknow', 'author':'Unknow'}
 	for l in file:
 		if l[0] == "@":
@@ -66,7 +66,7 @@ outputFile.write("""<!DOCTYPE html>
 
 #Prepare regex
 #Title tag
-h1 = re.compile('^#{1}([.^#]*)')
+h1 = re.compile('^#{1}([.^#]*)')		# Must be fixed
 h2 = re.compile('^#{2}?([A-z0-9])')
 
 for line in inputFile:
