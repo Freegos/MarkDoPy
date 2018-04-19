@@ -14,9 +14,11 @@
 
 # TO-DO (v2):
 #	* read other headers
+#	* add summary (pdf)/menu (html)
 
 
 import argparse
+import re
 
 def header(file):
 	#Arg : file openned without having been read
@@ -51,7 +53,7 @@ outputFile = open(args.output, 'w')
 print("Files open or created")
 
 headers = header(inputFile)
-print("Analysing " + headers['title'] + " by " + headers['author'] + " the " + headers['date'])
+print("Analysing \"" + headers['title'] + "\" by " + headers['author'] + " the " + headers['date'])
 
 outputFile.write("""<!DOCTYPE html>
 <html lang="en">
@@ -62,7 +64,17 @@ outputFile.write("""<!DOCTYPE html>
 </head>
 <body>""")
 
+#Prepare regex
+#Title tag
+h1 = re.compile('^#{1}([.^#]*)')
+h2 = re.compile('^#{2}?([A-z0-9])')
+
 for line in inputFile:
+	tmp = h1.match(line)
+	if tmp:
+		print(tmp.group(1))
+		line = "<h1>" + tmp.group(0) + "</h1>\n"
+	
 	outputFile.write(line)
 
 
