@@ -24,7 +24,7 @@ def header(file):
 	headers = {'title': 'Unknow', 'date':'Unknow', 'author':'Unknow'}
 	for l in file:
 		if l[0] == "@":
-			headers[l.split()[0][1:-1]] = l.split()[1]
+			headers[l.split()[0][1:-1]] = ' '.join(l.split()[1:])
 		else:
 			break
 	
@@ -51,18 +51,20 @@ outputFile = open(args.output, 'w')
 print("Files open or created")
 
 headers = header(inputFile)
+print("Analysing " + headers['title'] + " by " + headers['author'] + " the " + headers['date'])
 
 outputFile.write("""<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>"""+ str(headers[title])+"""</title>
-	<meta name="author" content=" """ + str(headers[author]) + """ ">
+	<title>"""+ str(headers['title'])+"""</title>
+	<meta name="author" content=" """ + str(headers['author']) + """ ">
 </head>
 <body>""")
 
 for line in inputFile:
-	print(line)
+	outputFile.write(line)
+
 
 #inputFile.readline()
 
@@ -70,6 +72,11 @@ for line in inputFile:
 outputFile.write("""</body>
 	<html>""")
 
+print("Saving")
+
 # Closing files is fun
 inputFile.close()
 outputFile.close()
+
+print("Done. Thank you for you use of markDoPy.")
+print("This funny app was presented by Adrien Albaladejo")
